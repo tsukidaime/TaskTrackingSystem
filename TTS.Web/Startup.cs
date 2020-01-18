@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,10 +32,9 @@ namespace TTS.Web
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
+            services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
-
             services.AddIdentity<User, IdentityRole<Guid>>(opts =>
                 {
                     opts.User.RequireUniqueEmail = true;
@@ -45,7 +46,15 @@ namespace TTS.Web
                 })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(opt =>
+            {
+                opt.CacheProfiles.Add("Default",
+                    new CacheProfile()
+                    {
+                        Duration = 300,
+                        Location = ResponseCacheLocation.None
+                    });
+            });
             services.AddRazorPages();
             services.ConfigureApplicationCookie(options =>
             {
@@ -53,8 +62,14 @@ namespace TTS.Web
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
-
-            // using Microsoft.AspNetCore.Identity.UI.Services;
+            services.AddTransient<UserService>();
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(3);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             services.AddSingleton<IEmailSender, EmailSender>();
         }
 
@@ -73,10 +88,16 @@ namespace TTS.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
+                }
+            });
+            app.UseSession();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

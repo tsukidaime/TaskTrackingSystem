@@ -1,6 +1,6 @@
 using System;
 
-namespace TTS.Web.Models
+namespace TTS.Shared.Models
 {
     public class ErrorViewModel
     {

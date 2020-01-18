@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using TTS.Web.Models;
+using TTS.Shared.Models;
 
 namespace TTS.Web.Controllers
 {

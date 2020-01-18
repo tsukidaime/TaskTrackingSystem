@@ -1,0 +1,82 @@
+@model IEnumerable<TTS.Shared.Models.UserViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="Users" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a> |
+                @if (User.IsInRole("admin"))
+                {
+                    <a asp-action="ChangeUserRole" asp-controller="Roles" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit User Role</a> |
+                }
+                <a asp-action="Details" asp-controller="Users" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a> 
+                <a asp-action="Delete" asp-controller="Users" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
