@@ -1,23 +1,17 @@
-@model RoleModel
+@model TTS.DAL.Entities.JobStatus
 
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "Edit";
+    Layout = "../Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h1>Edit</h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
-
-<h4>RoleViewModel</h4>
+<h4>JobStatus</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" asp-controller="Roles" method="post">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input type="hidden" asp-for="Id" value="@Model.Id"/>
@@ -27,6 +21,12 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <ejs-colorpicker id="colorPicker" mode="Palette" ejs-for="@Model.Color" value="@Model.Color"></ejs-colorpicker>
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -38,5 +38,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-</body>
-</html>

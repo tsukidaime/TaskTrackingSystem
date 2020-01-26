@@ -12,7 +12,7 @@ namespace TTS.DAL.Entities
         public DateTime BirthDate { get; set; }
         public string Position { get; set; }
         public virtual List<UserJob> UserJobs { get; }
-        public Guid ManagerId { get; set; }
+        public Guid? ManagerId { get; set; }
         public virtual User Manager { get; set; }
         public virtual List<User> Subordinates { get; }
         

@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TTS.BLL;
-using TTS.Shared.Models;
+using TTS.Shared.Models.User;
 
 namespace TTS.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class UsersController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -27,7 +28,7 @@ namespace TTS.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var users = await _userService.GetUsers();
-            var models = (from user in users select _mapper.Map<UserViewModel>(user)).ToList();
+            var models = (from user in users select _mapper.Map<UserModel>(user)).ToList();
             return View(models);
         }
 
@@ -45,18 +46,16 @@ namespace TTS.Web.Controllers
                 return NotFound();
             }
 
-            return View(_mapper.Map<UserViewModel>(user));
+            return View(_mapper.Map<UserDetailsModel>(user));
         }
-        
-        [Route("create-user")]
-        [Authorize(Roles="admin")]
+
         public IActionResult Create()
         {
             return View();
         }
 
-        [Route("create-user"), Authorize(Roles = "admin"), HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(UserViewModel model)
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(UserCreateModel model)
         {
             if (!ModelState.IsValid) return View(model);
             var result = await _userService.AddUser(model);
@@ -82,12 +81,12 @@ namespace TTS.Web.Controllers
             {
                 return NotFound();
             }
-            return View(_mapper.Map<EditUserViewModel>(user));
+            return View(_mapper.Map<UserEditModel>(user));
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EditUserViewModel model)
+        public async Task<IActionResult> Edit(UserEditModel model)
         {
             if (!ModelState.IsValid) return View(model);
             var result = await _userService.EditUser(model);
@@ -99,7 +98,7 @@ namespace TTS.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
         
-        [Authorize(Roles="admin"),HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -113,10 +112,10 @@ namespace TTS.Web.Controllers
                 return NotFound();
             }
 
-            return View(_mapper.Map<UserViewModel>(user));
+            return View(_mapper.Map<UserModel>(user));
         }
 
-        [HttpPost, ActionName("Delete"), Authorize(Roles = "admin"),
+        [HttpPost, ActionName("Delete"),
          ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {

@@ -10,7 +10,7 @@ namespace TTS.DAL
     {
         public override DbSet<User> Users { get; set; }
         public DbSet<Job> Jobs { get; set; }
-
+        public DbSet<JobStatus> JobStatuses { get; set; }
         public DbSet<UserJob> UserJobs { get; set; }
         
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)

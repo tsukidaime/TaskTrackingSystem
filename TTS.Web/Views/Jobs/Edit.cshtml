@@ -1,0 +1,51 @@
+@model JobEditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Job</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" value="@Model.Id"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Deadline" class="control-label"></label>
+                <input asp-for="Deadline" class="form-control" />
+                <span asp-validation-for="Deadline" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <ejs-dropdownlist id="jobStatuses" dataSource="@ViewBag.JobStatuses" placeholder="Select a job status"
+                                  itemTemplate="@Html.Raw("<div style=\"background-color: ${Color}; color: white\">${Name}</div>")"
+                                  ejs-for="@Model.JobStatusId">
+                    <e-dropdownlist-fields text="Name" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

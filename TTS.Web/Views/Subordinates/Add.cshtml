@@ -1,0 +1,34 @@
+@using Newtonsoft.Json
+@model SubordinateAddModel
+
+
+@{
+    ViewBag.Title = "Add Subordinate";
+    Layout = "../Shared/_Layout";
+}
+
+<h1>Subordinate Add</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <ejs-multiselect id="template" dataSource="@Model.AllUsers" placeholder="Select an employees" 
+                                 ejs-for="@Model.Subordinates" value="@Model.UserSubs"
+                                 itemTemplate="@Html.Raw("<div><div class=\"name\"> ${Name} </div><div class=\"job\">  ${Position} </div></div>")"
+                                 valueTemplate="@Html.Raw("<div style=\"width:100%;height:100%;\"><div class=\"name\"> ${Name} </div></div>")"
+                                 mode="Box">
+                    <e-multiselect-fields text="Name" value="Id"></e-multiselect-fields>
+                </ejs-multiselect>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Users">Back to List</a>
+</div>

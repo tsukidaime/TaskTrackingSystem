@@ -5,11 +5,16 @@
     <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_TTS.1814525458.00" t="ExcludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.syncfusion.com_ej2_bootstrap.css" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.syncfusion.com_ej2_bootstrap4.css" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.syncfusion.com_ej2_dist_ej2.js" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.syncfusion.com_ej2_material.css" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
       <e p="TTS.BLL" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="EmailSender.cs" t="Include" />
+        <e p="JobService.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -35,6 +40,10 @@
           <e p="20200117111918_Identity.Designer.cs" t="Include" />
           <e p="20200117124634_JobStatus.cs" t="Include" />
           <e p="20200117124634_JobStatus.Designer.cs" t="Include" />
+          <e p="20200121032928_ManagerRelation.cs" t="Include" />
+          <e p="20200121032928_ManagerRelation.Designer.cs" t="Include" />
+          <e p="20200123211504_ManagerNull.cs" t="Include" />
+          <e p="20200123211504_ManagerNull.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -49,11 +58,25 @@
       <e p="TTS.Shared" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Models" t="Include">
-          <e p="ChangeUserRoleViewModel.cs" t="Include" />
-          <e p="EditUserViewModel.cs" t="Include" />
           <e p="ErrorViewModel.cs" t="Include" />
-          <e p="RoleViewModel.cs" t="Include" />
-          <e p="UserViewModel.cs" t="Include" />
+          <e p="Job" t="Include">
+            <e p="JobCreateModel.cs" t="Include" />
+            <e p="JobDetailsModel.cs" t="Include" />
+            <e p="JobModel.cs" t="Include" />
+          </e>
+          <e p="Role" t="Include">
+            <e p="RoleModel.cs" t="Include" />
+          </e>
+          <e p="Subordinates" t="Include">
+            <e p="SubordianteAddModel.cs" t="Include" />
+          </e>
+          <e p="User" t="Include">
+            <e p="UserCreateModel.cs" t="Include" />
+            <e p="UserDetailsModel.cs" t="Include" />
+            <e p="UserEditModel.cs" t="Include" />
+            <e p="UserModel.cs" t="Include" />
+            <e p="UserRoleModel.cs" t="Include" />
+          </e>
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -155,7 +178,10 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
           <e p="HomeController.cs" t="Include" />
+          <e p="JobsController.cs" t="Include" />
+          <e p="JobStatusController.cs" t="Include" />
           <e p="RolesController.cs" t="Include" />
+          <e p="SubordinatesController.cs" t="Include" />
           <e p="UsersController.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -167,7 +193,9 @@
           </e>
         </e>
         <e p="Profiles" t="Include">
+          <e p="JobProfile.cs" t="Include" />
           <e p="RoleProfile.cs" t="Include" />
+          <e p="UserProfile.cs" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
@@ -183,6 +211,20 @@
             <e p="Index.cshtml" t="Include" />
             <e p="Privacy.cshtml" t="Include" />
           </e>
+          <e p="Jobs" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Delete.cshtml" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="JobStatus" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Delete.cshtml" t="Include" />
+            <e p="Details.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
           <e p="Roles" t="Include">
             <e p="ChangeUserRole.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
@@ -195,6 +237,9 @@
             <e p="_LoginPartial.cshtml" t="Include" />
             <e p="_ValidationScriptsPartial.cshtml" t="Include" />
             <e p="Error.cshtml" t="Include" />
+          </e>
+          <e p="Subordinates" t="Include">
+            <e p="Add.cshtml" t="Include" />
           </e>
           <e p="Users" t="Include">
             <e p="Create.cshtml" t="Include" />

@@ -1,9 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TTS.Shared.Models
+namespace TTS.Shared.Models.Role
 {
-    public class RoleViewModel
+    public class RoleModel
     {
         public Guid Id { get; set; }
         [Required]

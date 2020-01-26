@@ -1,7 +1,7 @@
 using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using TTS.Shared.Models;
+using TTS.Shared.Models.Role;
 
 namespace TTS.Web.Profiles
 {
@@ -9,7 +9,7 @@ namespace TTS.Web.Profiles
     {
         public RoleProfile()
         {
-            CreateMap<IdentityRole<Guid>, RoleViewModel>().ReverseMap();
+            CreateMap<IdentityRole<Guid>, RoleModel>().ReverseMap();
         }
     }
 }

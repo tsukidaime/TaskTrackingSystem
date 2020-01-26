@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TTS.BLL;
 using TTS.DAL.Entities;
-using TTS.Shared.Models;
+using TTS.Shared.Models.User;
+using TTS.Shared.Models.Role;
 
 namespace TTS.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;
@@ -25,13 +29,13 @@ namespace TTS.Web.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index() => View((from role in _roleManager.Roles.ToList() select _mapper.Map<RoleViewModel>(role)).ToList());
+        public IActionResult Index() => View((from role in _roleManager.Roles.ToList() select _mapper.Map<RoleModel>(role)).ToList());
         
 
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(RoleViewModel model)
+        public async Task<IActionResult> Create(RoleModel model)
         {
             if (!ModelState.IsValid) return View(model.Name);
             var result = await _roleManager.CreateAsync(new IdentityRole<Guid>(model.Name));
@@ -57,12 +61,12 @@ namespace TTS.Web.Controllers
             {
                 return NotFound();
             }
-            return View(_mapper.Map<RoleViewModel>(role));
+            return View(_mapper.Map<RoleModel>(role));
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(RoleViewModel model)
+        public async Task<IActionResult> Edit(RoleModel model)
         {
             if (!ModelState.IsValid) return View(model);
             var result = await _roleManager.UpdateAsync(_mapper.Map<IdentityRole<Guid>>(model));
@@ -75,39 +79,38 @@ namespace TTS.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ChangeUserRole(Guid? userId)
+        public async Task<IActionResult> ChangeUserRole(Guid? id)
         {
-            if (userId == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _userService.GetUser((Guid)userId);
+            var user = await _userService.GetUser((Guid)id);
             if (user == null)
             {
                 return NotFound();
             }
 
             var userRoles = await _userService.GetUserRoles(user);
-            var model = new ChangeUserRoleViewModel()
+            var model = new UserRoleModel()
             {
-                UserId = user.Id,
-                UserRoles = userRoles,
-                AllRoles = (from role in _roleManager.Roles select _mapper.Map<RoleViewModel>(role)).ToList()
+                UserId = user.Id
             };
-            
+            ViewBag.Roles = new SelectList(
+                (from role in _roleManager.Roles select _mapper.Map<RoleModel>(role)).ToList(),
+                "Name", "Name", userRoles);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeUserRole(Guid userId, List<string> roles)
+        public async Task<IActionResult> ChangeUserRole(Guid userId, UserRoleModel model)
         {
             var user = await _userService.GetUser(userId);
             if (user == null) return NotFound();
             var userRoles = await _userService.GetUserRoles(user);
-            var addedRoles = roles.Except(userRoles);
-            var removedRoles = userRoles.Except(roles);
-
+            var addedRoles = model.UserRoles.Except(userRoles);
+            var removedRoles = userRoles.Except(model.UserRoles);
             var addRes = await _userService.AddRolesAsync(user, addedRoles);
             var remRes = await _userService.RemoveRolesAsync(user, removedRoles);
             if(addRes.Succeeded && remRes.Succeeded) return RedirectToAction("Index","Users");
@@ -137,7 +140,7 @@ namespace TTS.Web.Controllers
                 return NotFound();
             }
 
-            return View(_mapper.Map<RoleViewModel>(role));
+            return View(_mapper.Map<RoleModel>(role));
         }
 
 

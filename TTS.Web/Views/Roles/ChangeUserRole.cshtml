@@ -1,4 +1,4 @@
-@model ChangeUserRoleViewModel
+@model UserRoleModel
 
 @{
     ViewBag.Title = "Change User Role";
@@ -18,17 +18,8 @@
         <form asp-action="ChangeUserRole" asp-controller="Roles" method="post">
             <input type="hidden" name="userId" value="@Model.UserId" />
             <div class="form-group">
-                @foreach (var item in Model.AllRoles)
-                {
-                    if (Model.UserRoles.Contains(item.Name))
-                    {
-                        @Html.CheckBox(item.Name, true, new { name="roles"})
-                    }
-                    else
-                    {
-                        @Html.CheckBox(item.Name, false,new { name="roles"})
-                    }
-                }
+                <label asp-for="UserRoles" class="control-label"></label>
+                <select asp-for="UserRoles" class ="form-control" asp-items="ViewBag.Roles"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary"/>

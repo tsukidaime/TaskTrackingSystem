@@ -24,6 +24,7 @@
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="3.1.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
+      <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="17.4.0.43" />
     </ItemGroup>
 
     <ItemGroup>
@@ -33,7 +34,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Views\Users" />
+      <Folder Include="Views\JobStatus" />
     </ItemGroup>
 
 

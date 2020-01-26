@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using TTS.DAL;
 using TTS.DAL.Entities;
-using TTS.Shared.Models;
+using TTS.Shared.Models.User;
 
 namespace TTS.BLL
 {
@@ -35,7 +35,32 @@ namespace TTS.BLL
             return users;
         }
 
-        public async Task<IdentityResult> AddUser(UserViewModel model)
+        public async Task<List<User>> GetSubordinates(Guid managerId)
+        {
+            var users = await _context.Users.Where(x => x.ManagerId == managerId).ToListAsync();
+            return users;
+        }
+
+        public async Task AddSubordinate(Guid managerId, List<Guid> subordinates)
+        {
+            foreach (var id in subordinates)
+            {
+                var user = await GetUser(id);
+                user.ManagerId = managerId;
+                try
+                {
+                    await _userManager.UpdateAsync(user);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IdentityResult> AddUser(UserCreateModel model)
         {
             var user = _mapper.Map<User>(model);
             user.UserName = model.Email;
@@ -68,7 +93,7 @@ namespace TTS.BLL
             return res;
         }
 
-        public async Task<IdentityResult> EditUser(EditUserViewModel model)
+        public async Task<IdentityResult> EditUser(UserEditModel model)
         {
             var user = await _context.Users.FindAsync(model.Id);
             try

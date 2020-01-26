@@ -63,6 +63,7 @@ namespace TTS.Web
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
             services.AddTransient<UserService>();
+            services.AddTransient<JobService>();
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
@@ -73,7 +74,6 @@ namespace TTS.Web
             services.AddSingleton<IEmailSender, EmailSender>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -83,7 +83,6 @@ namespace TTS.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

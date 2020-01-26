@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace TTS.Shared.Models
+namespace TTS.Shared.Models.User
 {
-    public class ChangeUserRoleViewModel
+    public class UserRoleModel
     {
         public Guid UserId { get; set; }
         public List<string> UserRoles { get; set; }
-        public List<RoleViewModel> AllRoles { get; set; }
     }
 }
