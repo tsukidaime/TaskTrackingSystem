@@ -62,6 +62,7 @@
           <e p="Job" t="Include">
             <e p="JobCreateModel.cs" t="Include" />
             <e p="JobDetailsModel.cs" t="Include" />
+            <e p="JobEditModel.cs" t="Include" />
             <e p="JobModel.cs" t="Include" />
           </e>
           <e p="Role" t="Include">
