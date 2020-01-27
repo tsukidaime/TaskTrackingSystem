@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,12 @@ namespace TTS.BLL
             return users;
         }
 
+        public async Task<List<Job>> GetJobs(Guid id)
+        {
+            var jobs = await _context.UserJobs.Where(x => x.UserId == id)
+                .Select(x => x.Job).ToListAsync();
+            return jobs;
+        }
         public async Task<List<User>> GetSubordinates(Guid managerId)
         {
             var users = await _context.Users.Where(x => x.ManagerId == managerId).ToListAsync();
@@ -72,6 +79,11 @@ namespace TTS.BLL
         public async Task<User> GetUser(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
+            return user;
+        }
+        public async Task<User> GetUser(ClaimsPrincipal principal)
+        {
+            var user = await _userManager.GetUserAsync(principal);
             return user;
         }
 
@@ -115,7 +127,6 @@ namespace TTS.BLL
                     throw;
             }
         }
-
 
         public async Task<IdentityResult> DeleteUser(Guid id)
         {

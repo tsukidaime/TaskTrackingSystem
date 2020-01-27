@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TTS.BLL;
+using TTS.BLL.Options;
 using TTS.DAL;
 using TTS.DAL.Entities;
 
@@ -72,6 +73,7 @@ namespace TTS.Web
                 options.Cookie.IsEssential = true;
             });
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration); 
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

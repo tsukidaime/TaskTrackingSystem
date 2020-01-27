@@ -30,14 +30,14 @@ namespace TTS.Web
             _mapper = mapper;
             _context = context;
         }
-        
+
         public async Task<IActionResult> Index()
         {
-            var models = (from job in await _jobService.Get()
+            var user = await _userService.GetUser(HttpContext.User);
+            var models = (from job in await _userService.GetJobs(user.Id)
                 select _mapper.Map<JobModel>(job)).ToList();
             return View(models);
         }
-
         
         public async Task<IActionResult> Details(Guid? id)
         {

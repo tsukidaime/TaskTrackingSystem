@@ -13,8 +13,6 @@
       <e p="packages" t="ExcludeRecursive" />
       <e p="TTS.BLL" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="EmailSender.cs" t="Include" />
-        <e p="JobService.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -22,8 +20,15 @@
             </e>
           </e>
         </e>
+        <e p="Options" t="Include">
+          <e p="AuthMessageSenderOptions.cs" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="EmailSender.cs" t="Include" />
+          <e p="JobService.cs" t="Include" />
+          <e p="UserService.cs" t="Include" />
+        </e>
         <e p="TTS.BLL.csproj" t="IncludeRecursive" />
-        <e p="UserService.cs" t="Include" />
       </e>
       <e p="TTS.DAL" t="IncludeRecursive">
         <e p="AppDbContext.cs" t="Include" />
@@ -201,6 +206,9 @@
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
+          <e p="PublishProfiles" t="Include">
+            <e p="tapsyrma - Web Deploy.pubxml" t="Include" />
+          </e>
         </e>
         <e p="ScaffoldingReadMe.txt" t="Include" />
         <e p="Startup.cs" t="Include" />

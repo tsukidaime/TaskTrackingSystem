@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TTS.BLL;
 using TTS.Shared.Models.Subordinates;
@@ -9,6 +10,7 @@ using TTS.Shared.Models.User;
 
 namespace TTS.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class SubordinatesController : Controller
     {
         private readonly UserService _userService;

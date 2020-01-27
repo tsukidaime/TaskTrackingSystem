@@ -1,0 +1,37 @@
+﻿<Properties StartupConfiguration="{D7214327-9DA9-4E58-BF58-5FF231DEBC1B}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TTS.Web/obj/Debug/netcoreapp3.1/Razor/Views/Shared/Error.cshtml.g.cs">
+    <Files>
+      <File FileName="TTS.BLL/Services/EmailSender.cs" Line="1" Column="1" />
+      <File FileName="TTS.BLL/Options/AuthMessageSenderOptions.cs" />
+      <File FileName="../../../../usr/local/share/dotnet/sdk/3.1.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" />
+      <File FileName="TTS.Web/obj/Debug/netcoreapp3.1/Razor/Views/JobStatus/Details.cshtml.g.cs" />
+      <File FileName="TTS.Web/obj/Debug/netcoreapp3.1/Razor/Views/Shared/Error.cshtml.g.cs" Line="15" Column="2" />
+      <File FileName="TTS.Web/obj/Debug/netcoreapp3.1/Razor/Areas/Identity/Pages/Account/ResetPasswordConfirmation.cshtml.g.cs" />
+      <File FileName="TTS.Web/obj/Debug/netcoreapp3.1/Razor/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml.g.cs" />
+      <File FileName="TTS.Web/obj/Debug/netcoreapp3.1/Razor/Areas/Identity/Pages/Account/Login.cshtml.g.cs" />
+      <File FileName="TTS.Web/Startup.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="TTS" expanded="True">
+            <Node name="TTS.BLL" expanded="True" selected="True">
+              <Node name="Options" expanded="True" />
+              <Node name="Services" expanded="True" />
+            </Node>
+            <Node name="TTS.Web" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.TTS.Web PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
