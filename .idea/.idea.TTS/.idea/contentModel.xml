@@ -15,7 +15,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="TTS.BLL.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -53,7 +53,7 @@
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="TTS.DAL.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -86,7 +86,7 @@
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="TTS.Shared.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -192,7 +192,7 @@
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="TTS.Web.AssemblyInfo.cs" t="Include" />
               <e p="TTS.Web.RazorAssemblyInfo.cs" t="Include" />
             </e>
