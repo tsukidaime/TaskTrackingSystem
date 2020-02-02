@@ -26,7 +26,7 @@ namespace TTS.BLL
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("support@tapsyrma.com", Options.SendGridUser),
+                From = new EmailAddress("aibek.shulembekov@tapsyrma.azurewebsites.net", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
