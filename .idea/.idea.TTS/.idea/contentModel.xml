@@ -206,11 +206,7 @@
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
-          <e p="PublishProfiles" t="Include">
-            <e p="tapsyrma - Web Deploy.pubxml" t="Include" />
-          </e>
         </e>
-        <e p="ScaffoldingReadMe.txt" t="Include" />
         <e p="Startup.cs" t="Include" />
         <e p="TTS.Web.csproj" t="IncludeRecursive" />
         <e p="Views" t="Include">

@@ -15,7 +15,6 @@ namespace TTS.DAL
         
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            base.Database.Migrate();
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
