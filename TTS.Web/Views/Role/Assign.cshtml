@@ -1,0 +1,38 @@
+@model RoleAssignDto
+
+@{
+    ViewBag.Title = "Assign Role";
+    Layout = "_Layout";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+
+<h4>Assign Role</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Assign" asp-controller="Role" method="post">
+            <input type="hidden" asp-for="UserId"/>
+            <div class="form-group">
+                <label asp-for="Roles" class="control-label"></label>
+                <ejs-multiselect id="roles" dataSource="@ViewBag.Roles" placeholder="Select a role .." ejs-for="@Model.Roles">
+                    <e-multiselect-fields text="Name" value="Name"></e-multiselect-fields>
+                </ejs-multiselect>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="User">Back to List</a>
+</div>
+
+</body>
+</html>

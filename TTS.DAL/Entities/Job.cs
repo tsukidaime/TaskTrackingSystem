@@ -15,7 +15,7 @@ namespace TTS.DAL.Entities
         
         public Guid JobStatusId { get; set; }
         
-        public virtual JobStatus JobStatus { get; set; }
+        public virtual Status Status { get; set; }
 
         public Job()
         {

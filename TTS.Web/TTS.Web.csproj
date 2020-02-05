@@ -1,41 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
-    <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="9.0.0" />
-      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        <PrivateAssets>all</PrivateAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        <PrivateAssets>all</PrivateAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
-      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="3.1.0" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
-      <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="17.4.0.43" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\TTS.BLL\TTS.BLL.csproj" />
-      <ProjectReference Include="..\TTS.DAL\TTS.DAL.csproj" />
-      <ProjectReference Include="..\TTS.Shared\TTS.Shared.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Views\JobStatus" />
-    </ItemGroup>
-
-
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>2e1fd0ee-6398-4f27-8039-446efcb0fc04</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="17.4.0.43" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TTS.BLL\TTS.BLL.csproj" />
+    <ProjectReference Include="..\TTS.Shared\TTS.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Status" />
+  </ItemGroup>
 </Project>

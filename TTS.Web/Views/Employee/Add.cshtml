@@ -1,0 +1,31 @@
+@using Newtonsoft.Json
+@model TTS.Shared.Models.Employee.EmployeeDto
+
+
+@{
+    ViewBag.Title = "Add Subordinate";
+    Layout = "../Shared/_Layout";
+}
+
+<h1>Subordinate Add</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <ejs-dropdownlist id="employees" dataSource="@Model.Employees" placeholder="Select an employee"
+                                  ejs-for="@Model.EmployeeId">
+                    <e-dropdownlist-fields text="Name" value="Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="User">Back to List</a>
+</div>

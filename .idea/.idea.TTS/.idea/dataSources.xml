@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="tts@tapsyrmadbserver.postgres.database.azure.com" uuid="bd8c1e93-025a-46cb-b96c-bf4c272579fa">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://tapsyrmadbserver.postgres.database.azure.com:5432/tts?sslmode=require</jdbc-url>
+    </data-source>
   </component>
 </project>

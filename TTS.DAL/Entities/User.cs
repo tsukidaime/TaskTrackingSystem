@@ -14,12 +14,12 @@ namespace TTS.DAL.Entities
         public virtual List<UserJob> UserJobs { get; }
         public Guid? ManagerId { get; set; }
         public virtual User Manager { get; set; }
-        public virtual List<User> Subordinates { get; }
+        public virtual List<User> Employees { get; }
         
         public User()
         {
             UserJobs = new List<UserJob>();
-            Subordinates = new List<User>();
+            Employees = new List<User>();
         }
     }
 }

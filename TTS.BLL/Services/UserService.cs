@@ -7,134 +7,31 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
+using TTS.BLL.Services.Abstract;
 using TTS.DAL;
 using TTS.DAL.Entities;
+using TTS.Shared.Infrastructure;
 using TTS.Shared.Models.User;
 
-namespace TTS.BLL
+namespace TTS.BLL.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
-        private readonly IWebHostEnvironment _appEnvironment;
         private readonly IMapper _mapper;
         private readonly AppDbContext _context;
         private readonly string _defaultPass = "qwe";
+        private readonly OperationHelper _operationHelper;
+        private readonly IdentityErrorHelper _errorHelper;
 
-        public UserService(UserManager<User> userManager, AppDbContext context, IWebHostEnvironment appEnvironment, IMapper mapper)
+        public UserService(UserManager<User> userManager, AppDbContext context, IWebHostEnvironment appEnvironment,
+            IMapper mapper, OperationHelper operationHelper, IdentityErrorHelper errorHelper)
         {
             _userManager = userManager;
             _context = context;
-            _appEnvironment = appEnvironment;
             _mapper = mapper;
-        }
-
-        public async Task<List<User>> GetUsers()
-        {
-            var users = await _userManager.Users.ToListAsync();
-            return users;
-        }
-
-        public async Task<List<Job>> GetJobs(Guid id)
-        {
-            var jobs = await _context.UserJobs.Where(x => x.UserId == id)
-                .Select(x => x.Job).ToListAsync();
-            return jobs;
-        }
-        public async Task<List<User>> GetSubordinates(Guid managerId)
-        {
-            var users = await _context.Users.Where(x => x.ManagerId == managerId).ToListAsync();
-            return users;
-        }
-
-        public async Task AddSubordinate(Guid managerId, List<Guid> subordinates)
-        {
-            foreach (var id in subordinates)
-            {
-                var user = await GetUser(id);
-                user.ManagerId = managerId;
-                try
-                {
-                    await _userManager.UpdateAsync(user);
-                }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
-            }
-
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<IdentityResult> AddUser(UserCreateModel model)
-        {
-            var user = _mapper.Map<User>(model);
-            user.UserName = model.Email;
-            var result = await _userManager.CreateAsync(user, _defaultPass);
-            if (result.Succeeded) await _context.SaveChangesAsync();
-            return result;
-        }
-
-        public async Task<User> GetUser(Guid id)
-        {
-            var user = await _userManager.FindByIdAsync(id.ToString());
-            return user;
-        }
-        public async Task<User> GetUser(ClaimsPrincipal principal)
-        {
-            var user = await _userManager.GetUserAsync(principal);
-            return user;
-        }
-
-        public async Task<List<string>> GetUserRoles(User user)
-        {
-            var roles = await _userManager.GetRolesAsync(user);
-            return roles.ToList();
-        }
-
-        public async Task<IdentityResult> AddRolesAsync(User user, IEnumerable<string> roles)
-        {
-            var res = await _userManager.AddToRolesAsync(user, roles);
-            return res;
-        }
-        
-        public async Task<IdentityResult> RemoveRolesAsync(User user, IEnumerable<string> roles)
-        {
-            var res = await _userManager.RemoveFromRolesAsync(user, roles);
-            return res;
-        }
-
-        public async Task<IdentityResult> EditUser(UserEditModel model)
-        {
-            var user = await _context.Users.FindAsync(model.Id);
-            try
-            {
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.BirthDate = model.BirthDate;
-                user.Position = model.Position;
-                user.SecondName = model.SecondName;
-                var result = await _userManager.UpdateAsync(user);
-                if(result.Succeeded) await _context.SaveChangesAsync();
-                return result;
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(model.Id))
-                    return IdentityResult.Failed();
-                else
-                    throw;
-            }
-        }
-
-        public async Task<IdentityResult> DeleteUser(Guid id)
-        {
-            var user = await _userManager.FindByIdAsync(id.ToString());
-            if (user == null) return IdentityResult.Failed();
-            var result = await _userManager.DeleteAsync(user);
-            if (result.Succeeded) await _context.SaveChangesAsync();
-            return result;
+            _operationHelper = operationHelper;
+            _errorHelper = errorHelper;
         }
 
         private bool UserExists(Guid id)
@@ -142,5 +39,89 @@ namespace TTS.BLL
             return _context.Users.Any(e => e.Id == id);
         }
 
+        public async Task<OperationStatus<T>> CreateAsync<T>(T dto)
+        {
+            var user = _mapper.Map<User>(dto);
+            user.UserName = user.Email;
+            var result = await _userManager.CreateAsync(user, _defaultPass);
+            if (!result.Succeeded) _operationHelper.InternalServerError<T>(_errorHelper.ErrorMessage(result));
+            await _context.SaveChangesAsync();
+            return _operationHelper.OK<T>("User created successfully");
+        }
+
+        public async Task<OperationStatus<T>> DeleteByIdAsync<T>(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null) return _operationHelper.NotFound<T>($"user {id} isn't exist");
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded) _operationHelper.InternalServerError<T>(_errorHelper.ErrorMessage(result));
+            await _context.SaveChangesAsync();
+            return _operationHelper.OK<T>("User deleted successfully");
+        }
+
+        public async Task<OperationStatus<T>> UpdateAsync<T>(T item)
+        {
+            var dto = item as UserEditDto;
+            var user = await _context.Users.FindAsync(dto.Id);
+            try
+            {
+                user.FirstName = dto.FirstName;
+                user.LastName = dto.LastName;
+                user.BirthDate = dto.BirthDate;
+                user.Position = dto.Position;
+                user.SecondName = dto.SecondName;
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded) _operationHelper.InternalServerError<T>(_errorHelper.ErrorMessage(result));
+                await _context.SaveChangesAsync();
+                return _operationHelper.OK<T>("User updated successfully");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return !UserExists(dto.Id) ? _operationHelper.NotFound<T>($"user {dto.Id} isn't exist") 
+                    : _operationHelper.InternalServerError<T>($"Database update concurrency error");
+            }
+        }
+
+        public async Task<OperationStatus<T>> GetAsync<T>(Guid id)
+        {
+            User user;
+            try
+            {
+                user = await _userManager.FindByIdAsync(id.ToString());
+            }
+            catch (Exception e)
+            {
+                return _operationHelper.InternalServerError<T>($"Database error");
+            }
+            var model = _mapper.Map<T>(user);
+            return _operationHelper.OK(model,$"{user.Id} user returned successfully");
+        }
+        public async Task<OperationStatus<T>> GetAsync<T>(ClaimsPrincipal principal)
+        {
+            User user;
+            try
+            {
+                user = await _userManager.GetUserAsync(principal);
+            }
+            catch (Exception e)
+            {
+                return _operationHelper.InternalServerError<T>($"Database error");
+            }
+            var model = _mapper.Map<T>(user);
+            return _operationHelper.OK(model,$"{user.Id} user returned successfully");
+        }
+
+        public async Task<OperationStatus<IEnumerable<T>>> GetAllAsync<T>()
+        {
+            var users = _userManager.Users.Select(x=>_mapper.Map<T>(x)).AsEnumerable();
+            return _operationHelper.OK(users, "List of users returned successfully");
+        }
+        
+        public async Task<OperationStatus<IEnumerable<T>>> GetByJobAsync<T>(Job job)
+        {
+            var users = _context.UserJobs.Where(x => x.JobId == job.Id)
+                .Select(x => x.User).Select(x=>_mapper.Map<T>(x)).AsEnumerable();
+            return _operationHelper.OK(users,"Users returned successfully");
+        }
     }
 }

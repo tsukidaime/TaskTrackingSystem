@@ -5,7 +5,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using TTS.BLL.Options;
 
-namespace TTS.BLL
+namespace TTS.BLL.Services
 {
     public class EmailSender : IEmailSender
     {
@@ -26,13 +26,15 @@ namespace TTS.BLL
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("aibek.shulembekov@tapsyrma.azurewebsites.net", Options.SendGridUser),
+                From = new EmailAddress("Aibek@tapsyrma.com", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
             };
             msg.AddTo(new EmailAddress(email));
 
+            // Disable click tracking.
+            // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
             msg.SetClickTracking(false, false);
 
             return client.SendEmailAsync(msg);

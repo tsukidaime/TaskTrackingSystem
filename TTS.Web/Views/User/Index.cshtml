@@ -1,0 +1,62 @@
+@using System.Reflection.Metadata
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@model IEnumerable<UserDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "../Shared/_Layout.cshtml";
+    const string ADMIN_ROLE = "admin";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="User" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a> |
+                @if (User.IsInRole(ADMIN_ROLE))
+                {
+                    <a asp-action="Assign" asp-controller="Role" asp-route-id="@item.Id" class="btn btn-outline-primary">Assign role</a>
+                    <a asp-action="Add" asp-controller="Employee" asp-route-id="@item.Id" class="btn btn-outline-primary">Add Subordinate</a>
+                }
+                <a asp-action="Details" asp-controller="User" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a> 
+                <a asp-action="Delete" asp-controller="User" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -13,17 +13,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TTS.BLL;
 using TTS.BLL.Options;
+using TTS.BLL.Services;
+using TTS.BLL.Services.Abstract;
 using TTS.DAL;
 using TTS.DAL.Entities;
+using TTS.Shared.Infrastructure;
 
 namespace TTS.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            _env = env;
             Configuration = configuration;
         }
 
@@ -39,6 +44,7 @@ namespace TTS.Web
             services.AddIdentity<User, IdentityRole<Guid>>(opts =>
                 {
                     opts.User.RequireUniqueEmail = true;
+                    opts.SignIn.RequireConfirmedEmail = true;
                     opts.Password.RequireNonAlphanumeric = false;
                     opts.Password.RequireUppercase = false;
                     opts.Password.RequireDigit = false;
@@ -63,8 +69,11 @@ namespace TTS.Web
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
-            services.AddTransient<UserService>();
-            services.AddTransient<JobService>();
+            services.AddTransient<IUserService,UserService>();
+            services.AddTransient<IJobService,JobService>();
+            services.AddTransient<IRoleService,RoleService>();
+            services.AddTransient<IEmployeeService,EmployeeService>();
+            services.AddTransient<IStatusService,StatusService>();
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
@@ -73,12 +82,14 @@ namespace TTS.Web
                 options.Cookie.IsEssential = true;
             });
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddSingleton<OperationHelper>();
+            services.AddSingleton<IdentityErrorHelper>();
             services.Configure<AuthMessageSenderOptions>(Configuration); 
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
