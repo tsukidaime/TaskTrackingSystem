@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -27,12 +28,13 @@ namespace TTS.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(Guid ?id)
+        public async Task<IActionResult> Add(Guid id)
         {
-            if (id == null) return BadRequest();
-            var employees = await _employeeService.GetAsync<UserDto>((Guid) id);
+            var employees = await _employeeService.GetAsync<UserDto>(id);
             var users = await _userService.GetAllAsync<UserDto>();
+            var user = await _userService.GetAsync<UserDto>(id);
             //TODO Ensure OK
+            employees.Value.Append(user.Value);
             var viewUsers = users.Value.Except(employees.Value);
             var model = new EmployeeDto()
             {

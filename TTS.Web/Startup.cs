@@ -19,6 +19,7 @@ using TTS.BLL.Services.Abstract;
 using TTS.DAL;
 using TTS.DAL.Entities;
 using TTS.Shared.Infrastructure;
+using TTS.Shared.Profiles;
 
 namespace TTS.Web
 {
@@ -38,13 +39,13 @@ namespace TTS.Web
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(JobProfile));
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
             services.AddIdentity<User, IdentityRole<Guid>>(opts =>
                 {
                     opts.User.RequireUniqueEmail = true;
-                    opts.SignIn.RequireConfirmedEmail = true;
+                    opts.SignIn.RequireConfirmedEmail = false;
                     opts.Password.RequireNonAlphanumeric = false;
                     opts.Password.RequireUppercase = false;
                     opts.Password.RequireDigit = false;
@@ -69,11 +70,15 @@ namespace TTS.Web
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
+            #region Transient
             services.AddTransient<IUserService,UserService>();
             services.AddTransient<IJobService,JobService>();
             services.AddTransient<IRoleService,RoleService>();
             services.AddTransient<IEmployeeService,EmployeeService>();
             services.AddTransient<IStatusService,StatusService>();
+            services.AddTransient<ITodoService, TodoService>();
+            #endregion
+            
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {

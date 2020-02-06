@@ -11,6 +11,8 @@ namespace TTS.Shared.Models.User
         public string Email { get; set; }
         public string Name { get; set; }
         public string Position { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MMM/d/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         public int Age

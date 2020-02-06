@@ -11,6 +11,6 @@ namespace TTS.BLL.Services.Abstract
         Task<OperationStatus<T>> DeleteByIdAsync<T>(Guid id);
         Task<OperationStatus<T>> UpdateAsync<T>(T item);
         Task<OperationStatus<T>> GetAsync<T>(Guid id);
-        Task<OperationStatus<IEnumerable<T>>> GetAllAsync<T>();
+        Task<OperationStatus<List<T>>> GetAllAsync<T>();
     }
 }

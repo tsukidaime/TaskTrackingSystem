@@ -2,11 +2,11 @@ using AutoMapper;
 using TTS.DAL.Entities;
 using TTS.Shared.Models.Status;
 
-namespace TTS.Web.Profiles
+namespace TTS.Shared.Profiles
 {
-    public class JobStatusProfile : Profile
+    public class StatusProfile : Profile
     {
-        public JobStatusProfile()
+        public StatusProfile()
         {
             CreateMap<Status, StatusDto>().ReverseMap();
         }

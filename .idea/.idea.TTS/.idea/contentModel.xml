@@ -30,6 +30,7 @@
             <e p="IRoleService.cs" t="Include" />
             <e p="IService.cs" t="Include" />
             <e p="IStatusService.cs" t="Include" />
+            <e p="ITodoService.cs" t="Include" />
             <e p="IUserService.cs" t="Include" />
           </e>
           <e p="EmailSender.cs" t="Include" />
@@ -37,6 +38,7 @@
           <e p="JobService.cs" t="Include" />
           <e p="RoleService.cs" t="Include" />
           <e p="StatusService.cs" t="Include" />
+          <e p="TodoService.cs" t="Include" />
           <e p="UserService.cs" t="Include" />
         </e>
         <e p="TTS.BLL.csproj" t="IncludeRecursive" />
@@ -48,6 +50,7 @@
           <e p="Entity.cs" t="Include" />
           <e p="Job.cs" t="Include" />
           <e p="Status.cs" t="Include" />
+          <e p="Todo.cs" t="Include" />
           <e p="User.cs" t="Include" />
           <e p="UserJob.cs" t="Include" />
         </e>
@@ -60,6 +63,10 @@
           <e p="20200121032928_ManagerRelation.Designer.cs" t="Include" />
           <e p="20200123211504_ManagerNull.cs" t="Include" />
           <e p="20200123211504_ManagerNull.Designer.cs" t="Include" />
+          <e p="20200205183359_TodoAdded.cs" t="Include" />
+          <e p="20200205183359_TodoAdded.Designer.cs" t="Include" />
+          <e p="20200205191711_FixedTodo.cs" t="Include" />
+          <e p="20200205191711_FixedTodo.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -97,6 +104,9 @@
           <e p="Status" t="Include">
             <e p="StatusDto.cs" t="Include" />
           </e>
+          <e p="Todo" t="Include">
+            <e p="TodoDto.cs" t="Include" />
+          </e>
           <e p="User" t="Include">
             <e p="UserCreateDto.cs" t="Include" />
             <e p="UserDetailsDto.cs" t="Include" />
@@ -113,8 +123,9 @@
         </e>
         <e p="Profiles" t="Include">
           <e p="JobProfile.cs" t="Include" />
-          <e p="JobStatusProfile.cs" t="Include" />
           <e p="RoleProfile.cs" t="Include" />
+          <e p="StatusProfile.cs" t="Include" />
+          <e p="TodoProfile.cs" t="Include" />
           <e p="UserProfile.cs" t="Include" />
         </e>
         <e p="TTS.Shared.csproj" t="IncludeRecursive" />
@@ -214,6 +225,7 @@
           <e p="JobController.cs" t="Include" />
           <e p="RoleController.cs" t="Include" />
           <e p="StatusController.cs" t="Include" />
+          <e p="TodoController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -268,7 +280,11 @@
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
           </e>
+          <e p="Todo" t="Include">
+            <e p="List.cshtml" t="Include" />
+          </e>
           <e p="User" t="Include">
+            <e p="_List.cshtml" t="Include" />
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
             <e p="Details.cshtml" t="Include" />

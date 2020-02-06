@@ -7,6 +7,6 @@ namespace TTS.BLL.Services.Abstract
 {
     public interface IJobService : IService
     {
-        Task<OperationStatus<IEnumerable<T>>> GetByUser<T>(ClaimsPrincipal principal);
+        Task<OperationStatus<List<T>>> GetByUser<T>(ClaimsPrincipal principal);
     }
 }

@@ -1,0 +1,13 @@
+@model IEnumerable<UserDto>
+
+
+    <ejs-grid id="GridUser" dataSource="@Model"  toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })" allowPaging="true">
+        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Dialog"></e-grid-editSettings>
+        <e-grid-pagesettings pageCount="5 "></e-grid-pagesettings>
+        <e-grid-columns>
+            <e-grid-column field="Name" headerText="Name" validationRules="@(new { required=true})" textAlign="Center"  width="200"></e-grid-column>
+            <e-grid-column field="Email" headerText="Email"  textAlign="Center"></e-grid-column>
+            <e-grid-column field="Position" headerText="Position"  textAlign="Center"></e-grid-column>
+            <e-grid-column field="Age" headerText="Age"  textAlign="Center"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>

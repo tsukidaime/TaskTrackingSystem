@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TTS.DAL.Entities;
 using TTS.Shared.Models.Status;
+using TTS.Shared.Models.Todo;
 using TTS.Shared.Models.User;
 namespace TTS.Shared.Models.Job
 {
@@ -24,8 +25,10 @@ namespace TTS.Shared.Models.Job
         [DisplayFormat(DataFormatString = "{0:MMM/d/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime Deadline { get; set; }
-        public List<UserDto> Users { get; }
-
+        
+        public List<TodoDto> Todos { get; set; }
+        public List<UserDto> Users { get; set; }
+        public Guid StatusId { get; set; }
         public StatusDto Status { get; set; }
     }
 }

@@ -31,16 +31,14 @@
             <div class="form-group">
                 <ejs-multiselect id="template" dataSource="@ViewBag.Users" placeholder="Select an employees" 
                                  ejs-for="@Model.SelectedUsers"
-                                 itemTemplate="@Html.Raw("<div><div class=\"name\"> ${Name} </div><div class=\"job\">  ${Position} </div></div>")"
-                                 valueTemplate="@Html.Raw("<div style=\"width:100%;height:100%;\"><div class=\"name\"> ${Name} </div></div>")"
                                  mode="Box">
                     <e-multiselect-fields text="Name" value="Id"></e-multiselect-fields>
                 </ejs-multiselect>
             </div>
             <div class="form-group">
-                <ejs-dropdownlist id="jobStatuses" dataSource="@ViewBag.JobStatuses" placeholder="Select a job status"
+                <ejs-dropdownlist id="jobStatuses" dataSource="@ViewBag.Statuses" placeholder="Select a job status"
                                   itemTemplate="@Html.Raw("<div style=\"background-color: ${Color}; color: white\">${Name}</div>")"
-                                  ejs-for="@Model.JobStatusId">
+                                  ejs-for="@Model.StatusId">
                     <e-dropdownlist-fields text="Name" value="Id"></e-dropdownlist-fields>
                 </ejs-dropdownlist>
             </div>

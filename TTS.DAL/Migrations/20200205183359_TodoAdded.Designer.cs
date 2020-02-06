@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TTS.DAL;
@@ -9,9 +10,10 @@ using TTS.DAL;
 namespace TTS.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200205183359_TodoAdded")]
+    partial class TodoAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,6 +164,9 @@ namespace TTS.DAL.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<Guid>("JobStatusId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -173,12 +178,9 @@ namespace TTS.DAL.Migrations
                     b.Property<DateTime>("StartedTime")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("StatusId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("JobStatusId");
 
                     b.ToTable("Jobs");
                 });
@@ -219,7 +221,7 @@ namespace TTS.DAL.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("Todos");
+                    b.ToTable("Todo");
                 });
 
             modelBuilder.Entity("TTS.DAL.Entities.User", b =>
@@ -377,7 +379,7 @@ namespace TTS.DAL.Migrations
                 {
                     b.HasOne("TTS.DAL.Entities.Status", "Status")
                         .WithMany("Jobs")
-                        .HasForeignKey("StatusId")
+                        .HasForeignKey("JobStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

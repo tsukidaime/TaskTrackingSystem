@@ -1,0 +1,25 @@
+@using Syncfusion.EJ2
+@model IEnumerable<TodoDto>
+
+@{
+    ViewBag.Title = "List Todos";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <ejs-grid id="GridTodo" toolbar="@(new List<string>() {"Add", "Edit", "Delete", "Update", "Cancel"})" allowPaging="true">
+            <e-data-manager json="@Model.Select(x=>(Object)x).ToArray()" adaptor="RemoteSaveAdaptor" insertUrl="/Todo/Create" updateUrl="/Todo/Edit" removeUrl="/Todo/Delete"></e-data-manager>
+            <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Dialog"></e-grid-editSettings>
+            <e-grid-pagesettings pageCount="5 "></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column field="Content" headerText="Content" validationRules="@(new {required = true})" textAlign="Center" width="200"></e-grid-column>
+                <e-grid-column field="Done" headerText="Done" editType="booleanedit" displayAsCheckBox="true" textAlign="Center" type="boolean"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Job">Back to List</a>
+</div>

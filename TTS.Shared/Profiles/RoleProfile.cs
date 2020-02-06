@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using TTS.Shared.Models.Role;
 
-namespace TTS.Web.Profiles
+namespace TTS.Shared.Profiles
 {
     public class RoleProfile : Profile
     {

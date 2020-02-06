@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TTS.Shared.Models.Todo;
 
 namespace TTS.Shared.Models.Job
 {
@@ -18,5 +20,7 @@ namespace TTS.Shared.Models.Job
         public DateTime Deadline { get; set; }
         [Required(ErrorMessage = "Job status is required")]
         public Guid JobStatusId { get; set; }
+        
+        public List<TodoDto> Todos { get; set; }
     }
 }

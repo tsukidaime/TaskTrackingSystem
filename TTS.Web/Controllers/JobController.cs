@@ -3,10 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using TTS.BLL.Services.Abstract;
 using TTS.DAL;
 using TTS.Shared.Models.Job;
+using TTS.Shared.Models.Status;
+using TTS.Shared.Models.Todo;
 using TTS.Shared.Models.User;
 
 namespace TTS.Web.Controllers
@@ -17,44 +20,60 @@ namespace TTS.Web.Controllers
         private readonly IJobService _jobService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        private readonly AppDbContext _context;
+        private readonly IStatusService _statusService;
+        private readonly IEmployeeService _employeeService;
+        private readonly ITodoService _todoService;
         
-        public JobController(IJobService jobService, IUserService userService, IMapper mapper, AppDbContext context)
+        public JobController(IJobService jobService, IUserService userService, IMapper mapper, IStatusService statusService, IEmployeeService employeeService, ITodoService todoService, IEmailSender emailSender)
         {
             _jobService = jobService;
             _userService = userService;
             _mapper = mapper;
-            _context = context;
+            _statusService = statusService;
+            _employeeService = employeeService;
+            _todoService = todoService;
         }
 
         public async Task<IActionResult> Index()
         {
             var result = await _jobService.GetByUser<JobDto>(HttpContext.User);
             //TODO ensure OK
-            var models = result.Value;
+            var jobs = result.Value;
+            foreach (var job in jobs)
+            {
+                var status = await _statusService.GetAsync<StatusDto>(job.StatusId);
+                job.Status = status.Value;
+            }
+            var models = jobs;
             return View(models);
         }
-        
+
+        [HttpGet]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null) return BadRequest();
-            
             var result = await _jobService.GetAsync<JobDetailsDto>((Guid) id);
             //TODO Ensure ok
-            var model = result.Value;
+            var job = result.Value;
+            var status = await _statusService.GetAsync<StatusDto>(job.StatusId);
+            job.Status = status.Value;
+            var users = await _userService.GetByJobAsync<UserDto>(job.Id);
+            job.Users = users.Value.ToList();
+            var todos = await _todoService.GetByJobAsync<TodoDto>(job.Id);
+            job.Todos = todos.Value.ToList();
+            var model = job;
             return View(model);
         }
 
-        
-        public async Task<IActionResult> Create(Guid ?id)
+
+        public async Task<IActionResult> Create()
         {
-            if (id == null) return BadRequest();
-            var users = (from user in await _userService.GetByJobAsync((Guid) id)
-                select _mapper.Map<UserDto>(user));
-            var jobStatuses = _context.Statuses.ToList();
-            ViewBag.JobStatuses = jobStatuses;
-            ViewBag.Users = users;
-            return View();
+            var user = await _userService.GetAsync<UserDto>(HttpContext.User);
+            var users = await _employeeService.GetAsync<UserDto>(user.Value.Id);
+            var statuses = await _statusService.GetAllAsync<StatusDto>();
+            ViewBag.Statuses = statuses.Value;
+            ViewBag.Users = users.Value;
+            return View(new JobCreateDto());
         }
 
         
@@ -63,9 +82,8 @@ namespace TTS.Web.Controllers
         public async Task<IActionResult> Create(JobCreateDto dto)
         {
             if (!ModelState.IsValid) return View(dto);
-            var result = await _jobService.CreateAsync(dto);
+            var job = await _jobService.CreateAsync(dto);
             //TODO ensure ok
-            
             return RedirectToAction(nameof(Index));
         }
 
@@ -73,11 +91,13 @@ namespace TTS.Web.Controllers
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null) return BadRequest();
-            var result = await _jobService.GetAsync<JobEditDto>((Guid) id);
+            var job = await _jobService.GetAsync<JobEditDto>((Guid) id);
             //TODO ensure ok
-            var model = result.Value;
-            var jobStatuses = _context.Statuses.ToList();
-            ViewBag.JobStatuses = jobStatuses;
+            var model = job.Value;
+            var users = await _userService.GetByJobAsync<UserDto>(model.Id);
+            var statuses = await _statusService.GetAllAsync<StatusDto>();
+            ViewBag.Statuses = statuses.Value;
+            ViewBag.Users = users.Value;
             return View(model);
         }
         
@@ -93,6 +113,7 @@ namespace TTS.Web.Controllers
         }
 
         
+        [HttpGet,Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null) return BadRequest();
@@ -104,7 +125,7 @@ namespace TTS.Web.Controllers
         }
 
         
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Delete"),Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {

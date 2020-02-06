@@ -70,10 +70,10 @@ namespace TTS.BLL.Services
             return _operationHelper.OK(dto, "Role returned successfully");
         }
 
-        public async Task<OperationStatus<IEnumerable<T>>> GetAllAsync<T>()
+        public async Task<OperationStatus<List<T>>> GetAllAsync<T>()
         {
             var roles = _roleManager.Roles.Select(x => _mapper.Map<T>(x)).AsEnumerable();
-            return _operationHelper.OK(roles, "Success");
+            return _operationHelper.OK(roles.ToList(), "Success");
         }
 
         public async Task<OperationStatus<IEnumerable<string>>> GetByUserAsync(Guid id)

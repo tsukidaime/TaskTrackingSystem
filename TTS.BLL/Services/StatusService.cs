@@ -30,7 +30,7 @@ namespace TTS.BLL.Services
         public async Task<OperationStatus<T>> CreateAsync<T>(T item)
         {
             var dto = item as StatusDto;
-            if (dto == null) return _operationHelper.BadRequest<T>($"StatusDto {dto.Id} is null");
+            if (dto == null) return _operationHelper.BadRequest<T>($"StatusDto  is null");
             var status = new Status()
             {
                 Name = dto.Name,
@@ -42,7 +42,7 @@ namespace TTS.BLL.Services
                 await _context.SaveChangesAsync();
             }
             catch (Exception e) {return _operationHelper.InternalServerError<T>(e.Message);}
-            return _operationHelper.OK<T>("Job created successfully");
+            return _operationHelper.OK<T>("Status created successfully");
         }
 
         public async Task<OperationStatus<T>> DeleteByIdAsync<T>(Guid id)
@@ -94,10 +94,10 @@ namespace TTS.BLL.Services
             return _operationHelper.OK(dto, "Status returned successfully");
         }
 
-        public async Task<OperationStatus<IEnumerable<T>>> GetAllAsync<T>()
+        public async Task<OperationStatus<List<T>>> GetAllAsync<T>()
         {
-            var roles = _context.Statuses.Select(x => _mapper.Map<T>(x)).AsEnumerable();
-            return _operationHelper.OK(roles, "Success");
+            var statuses = _context.Statuses.Select(x => _mapper.Map<T>(x)).ToList();
+            return _operationHelper.OK(statuses, "Success");
         }
     }
 }

@@ -19,7 +19,8 @@
             <input type="hidden" asp-for="UserId"/>
             <div class="form-group">
                 <label asp-for="Roles" class="control-label"></label>
-                <ejs-multiselect id="roles" dataSource="@ViewBag.Roles" placeholder="Select a role .." ejs-for="@Model.Roles">
+                <ejs-multiselect id="roles" dataSource="@ViewBag.Roles" 
+                                 placeholder="Select a role .." ejs-for="@Model.Roles">
                     <e-multiselect-fields text="Name" value="Name"></e-multiselect-fields>
                 </ejs-multiselect>
             </div>

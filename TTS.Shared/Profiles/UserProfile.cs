@@ -2,7 +2,7 @@ using AutoMapper;
 using TTS.DAL.Entities;
 using TTS.Shared.Models.User;
 
-namespace TTS.Web.Profiles
+namespace TTS.Shared.Profiles
 {
     public class UserProfile : Profile
     {

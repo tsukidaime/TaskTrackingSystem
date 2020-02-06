@@ -13,14 +13,14 @@ using TTS.Shared.Models.User;
 
 namespace TTS.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public class UserController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public UserController(ILogger<HomeController> logger, IUserService userService, IMapper mapper)
+        public UserController(ILogger<UserController> logger, IUserService userService, IMapper mapper)
         {
             _logger = logger;
             _userService = userService;
@@ -45,19 +45,16 @@ namespace TTS.Web.Controllers
             return View(_mapper.Map<UserDetailsDto>(result.Value));
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UserCreateDto dto)
         {
             if (!ModelState.IsValid) return View(dto);
-            var result = await _userService.CreateAsync<UserCreateDto>(dto);
+            var result = await _userService.CreateAsync(dto);
             //TODO Ensure OK
 
-            return View(dto);
+            return RedirectToAction(nameof(Index));
         }
         
         [HttpGet]
@@ -95,7 +92,7 @@ namespace TTS.Web.Controllers
         {
             var result = await _userService.DeleteByIdAsync<UserDto>(id);
             //TODO ensure OK
-            return View();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

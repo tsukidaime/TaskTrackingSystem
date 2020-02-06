@@ -16,7 +16,7 @@ using TTS.Shared.Models.Role;
 
 namespace TTS.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;
@@ -42,7 +42,7 @@ namespace TTS.Web.Controllers
         public async Task<IActionResult> Create(RoleDto dto)
         {
             if (!ModelState.IsValid) return View(dto.Name);
-            var result = _roleService.CreateAsync(dto);
+            var result = await _roleService.CreateAsync(dto);
             //TODO Ensure OK
             return Redirect(nameof(Index));
         }

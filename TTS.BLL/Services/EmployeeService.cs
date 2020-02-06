@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TTS.BLL.Services.Abstract;
 using TTS.DAL;
 using TTS.DAL.Entities;
@@ -31,8 +32,9 @@ namespace TTS.BLL.Services
 
         public async Task<OperationStatus<IEnumerable<T>>> GetAsync<T>(Guid id)
         {
-            var manager = await _userManager.FindByIdAsync(id.ToString());
-            var models = manager.Employees.Select(x => _mapper.Map<T>(x));
+            var user = await _context.Users.Include(x => x.Employees)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            var models = user.Employees.Select(x => _mapper.Map<T>(x));
             return _operationHelper.OK(models, "Employees returned successfully");
         }
 

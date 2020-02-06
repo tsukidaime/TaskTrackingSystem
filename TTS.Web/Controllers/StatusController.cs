@@ -54,7 +54,7 @@ namespace TTS.Web
         public async Task<IActionResult> Create(StatusDto dto)
         {
             if (ModelState == null || !ModelState.IsValid) return View(dto);
-            var result = _statusService.CreateAsync(dto);
+            var result = await _statusService.CreateAsync(dto);
             //TODO Ensure OK
             return RedirectToAction(nameof(Index));
         }

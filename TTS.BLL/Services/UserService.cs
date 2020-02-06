@@ -91,7 +91,7 @@ namespace TTS.BLL.Services
             }
             catch (Exception e)
             {
-                return _operationHelper.InternalServerError<T>($"Database error");
+                return _operationHelper.InternalServerError<T>(e.Message);
             }
             var model = _mapper.Map<T>(user);
             return _operationHelper.OK(model,$"{user.Id} user returned successfully");
@@ -105,22 +105,22 @@ namespace TTS.BLL.Services
             }
             catch (Exception e)
             {
-                return _operationHelper.InternalServerError<T>($"Database error");
+                return _operationHelper.InternalServerError<T>(e.Message);
             }
             var model = _mapper.Map<T>(user);
             return _operationHelper.OK(model,$"{user.Id} user returned successfully");
         }
 
-        public async Task<OperationStatus<IEnumerable<T>>> GetAllAsync<T>()
+        public async Task<OperationStatus<List<T>>> GetAllAsync<T>()
         {
-            var users = _userManager.Users.Select(x=>_mapper.Map<T>(x)).AsEnumerable();
+            var users = _userManager.Users.Select(x=>_mapper.Map<T>(x)).ToList();
             return _operationHelper.OK(users, "List of users returned successfully");
         }
         
-        public async Task<OperationStatus<IEnumerable<T>>> GetByJobAsync<T>(Job job)
+        public async Task<OperationStatus<List<T>>> GetByJobAsync<T>(Guid id)
         {
-            var users = _context.UserJobs.Where(x => x.JobId == job.Id)
-                .Select(x => x.User).Select(x=>_mapper.Map<T>(x)).AsEnumerable();
+            var users = _context.UserJobs.Where(x => x.JobId == id)
+                .Select(x => x.User).Select(x=>_mapper.Map<T>(x)).ToList();
             return _operationHelper.OK(users,"Users returned successfully");
         }
     }

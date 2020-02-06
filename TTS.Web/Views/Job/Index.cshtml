@@ -1,7 +1,4 @@
-@using Microsoft.AspNetCore.Identity
-@using TTS.DAL.Entities
 @model IEnumerable<JobDto>
-@inject UserManager<User> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -9,12 +6,8 @@
 }
 
 <h1>Index</h1>
-@{
-    var user = await UserManager.GetUserAsync(User);
-    var userId = user.Id;
-}
 <p>
-    <a asp-action="Create" asp-route-id="@userId">Create New</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -50,9 +43,10 @@
                 @Html.DisplayFor(modelItem => item.Status.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a> |
+                <a asp-action="List" asp-controller="Todo" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit Todo items</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary">Delete</a>
             </td>
         </tr>
 }
