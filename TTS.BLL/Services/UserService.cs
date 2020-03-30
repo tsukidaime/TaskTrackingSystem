@@ -113,14 +113,14 @@ namespace TTS.BLL.Services
 
         public async Task<OperationStatus<List<T>>> GetAllAsync<T>()
         {
-            var users = _userManager.Users.Select(x=>_mapper.Map<T>(x)).ToList();
+            var users = await _userManager.Users.Select(x=>_mapper.Map<T>(x)).ToListAsync();
             return _operationHelper.OK(users, "List of users returned successfully");
         }
         
         public async Task<OperationStatus<List<T>>> GetByJobAsync<T>(Guid id)
         {
-            var users = _context.UserJobs.Where(x => x.JobId == id)
-                .Select(x => x.User).Select(x=>_mapper.Map<T>(x)).ToList();
+            var users = await _context.UserJobs.Where(x => x.JobId == id)
+                .Select(x => x.User).Select(x=>_mapper.Map<T>(x)).ToListAsync();
             return _operationHelper.OK(users,"Users returned successfully");
         }
     }

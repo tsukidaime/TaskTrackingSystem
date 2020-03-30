@@ -126,10 +126,10 @@ namespace TTS.BLL.Services
 
         public async Task<OperationStatus<List<T>>> GetAllAsync<T>()
         {
-            var jobs = _context.Jobs
+            var jobs = await _context.Jobs
                 .Include(j => j.Status)
                 .Select(x => _mapper.Map<T>(x))
-                .ToList();
+                .ToListAsync();
             return _operationHelper.OK(jobs,"Jobs are returned successfully");
         }
 

@@ -94,7 +94,7 @@ namespace TTS.BLL.Services
 
         public async Task<OperationStatus<List<T>>> GetAllAsync<T>()
         {
-            var todos = _context.Todos.Select(x => _mapper.Map<T>(x)).ToList();
+            var todos = await _context.Todos.Select(x => _mapper.Map<T>(x)).ToListAsync();
             return _operationHelper.OK(todos, "Success");
         }
 

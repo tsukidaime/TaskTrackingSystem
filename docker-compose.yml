@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: 'tapsyrma_web'
+    # would need to tag aspnetcoreapp image as shown below to run
+    # used to setup a Web App for Containers example
+    # https://docs.microsoft.com/en-us/azure/app-service/containers/quickstart-multi-container
+    image: 'aibek1805/tts'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - "postgres"
+    networks:
+      - defaultnetwork
+
+  postgres:
+    container_name: 'tapsyrma_db'
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - pgconf:/etc/postgresql
+      - pglog:/var/log/postgresql
+    environment:
+      - POSTGRES_DB=tts
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - defaultnetwork
+
+volumes:
+  pgdata:
+    driver: local
+  pgconf:
+    driver: local
+  pglog:
+    driver: local
+    
+networks:
+  defaultnetwork:
+    driver: bridge

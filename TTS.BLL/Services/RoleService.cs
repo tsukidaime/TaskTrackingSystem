@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TTS.BLL.Services.Abstract;
 using TTS.DAL;
 using TTS.DAL.Entities;
@@ -72,8 +73,8 @@ namespace TTS.BLL.Services
 
         public async Task<OperationStatus<List<T>>> GetAllAsync<T>()
         {
-            var roles = _roleManager.Roles.Select(x => _mapper.Map<T>(x)).AsEnumerable();
-            return _operationHelper.OK(roles.ToList(), "Success");
+            var roles = _roleManager.Roles.Select(x => _mapper.Map<T>(x));
+            return _operationHelper.OK(await roles.ToListAsync(), "Success");
         }
 
         public async Task<OperationStatus<IEnumerable<string>>> GetByUserAsync(Guid id)

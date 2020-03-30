@@ -15,6 +15,10 @@ namespace TTS.DAL
         public DbSet<Todo> Todos { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+            if (Database.EnsureCreated())
+            {
+                Database.Migrate();
+            }
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
