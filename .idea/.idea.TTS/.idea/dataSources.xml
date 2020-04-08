@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="181a17d4-a87c-4ab0-a6ec-a8398630a473">
+    <data-source source="LOCAL" name="@localhost" uuid="927f5a71-5aee-4472-9a21-a38b25a8d364">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="tts@localhost" uuid="8191a22a-9700-4ab5-95a6-95970e9aa257">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/tts</jdbc-url>
     </data-source>
   </component>
 </project>

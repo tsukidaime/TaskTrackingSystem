@@ -62,7 +62,7 @@ namespace TTS.DAL
                 .HasOne(t => t.Job)
                 .WithMany(p => p.UserJobs)
                 .HasForeignKey(pc=>pc.JobId);
-            
+
             base.OnModelCreating(modelBuilder);
         }
     }

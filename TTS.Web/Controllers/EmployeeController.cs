@@ -34,7 +34,7 @@ namespace TTS.Web.Controllers
             var users = await _userService.GetAllAsync<UserDto>();
             var user = await _userService.GetAsync<UserDto>(id);
             //TODO Ensure OK
-            employees.Value.Append(user.Value);
+            employees.Value = employees.Value.Append(user.Value);
             var viewUsers = users.Value.Except(employees.Value);
             var model = new EmployeeDto()
             {

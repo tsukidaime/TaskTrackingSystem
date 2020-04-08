@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using TTS.BLL.Options;
 using TTS.BLL.Services;
 using TTS.BLL.Services.Abstract;
+using TTS.BLL.Utils;
 using TTS.DAL;
 using TTS.DAL.Entities;
 using TTS.Shared.Infrastructure;
@@ -90,7 +91,7 @@ namespace TTS.Web
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddSingleton<OperationHelper>();
             services.AddSingleton<IdentityErrorHelper>();
-            services.Configure<AuthMessageSenderOptions>(Configuration); 
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         public void Configure(IApplicationBuilder app)

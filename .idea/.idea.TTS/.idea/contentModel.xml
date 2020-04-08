@@ -42,6 +42,9 @@
           <e p="UserService.cs" t="Include" />
         </e>
         <e p="TTS.BLL.csproj" t="IncludeRecursive" />
+        <e p="Utils" t="Include">
+          <e p="SeedData.cs" t="Include" />
+        </e>
       </e>
       <e p="TTS.DAL" t="IncludeRecursive">
         <e p="AppDbContext.cs" t="Include" />
