@@ -2,25 +2,51 @@ variables:
   azureContainerRegistry: aibekshulembekov.azurecr.io
   azureSubscriptionEndpoint: Azure Resource Group
 stages:
-- stage: Run
-  displayName: Run and push stage
+- stage: Build and Push
+  displayName: Build and push stage
   jobs:
-  - job: Run
-    displayName: Run docker-compose
+  - job: Build
+    displayName: Build services
     steps:
     - task: DockerCompose@0
-      displayName: Container registry login
+      displayName: Build services
       inputs:
-        containerregistrytype: Azure Container Registry
+        action: Build services
         azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
         azureContainerRegistry: $(azureContainerRegistry)
-    - task: DockerCompose@0
-      displayName: Run a Docker Compose command
-      inputs:
-        action: Run a Docker Compose command
-        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-        azureContainerRegistry: $(azureContainerRegistry)
-        dockerComposeFile: docker-compose.yml 
+        dockerComposeFile: docker-compose.yml
         projectName: $(Build.Repository.Name)
         qualifyImageNames: true
-        dockerComposeCommand: rm
+        additionalImageTags: $(Build.BuildId)
+  - job: Push
+    displayName: Push services
+    steps:
+    - task: DockerCompose@0
+      displayName: Push services
+      inputs:
+        action: Push services
+        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+        azureContainerRegistry: $(azureContainerRegistry)
+        dockerComposeFile: docker-compose.yml
+        projectName: $(Build.Repository.Name)
+        qualifyImageNames: true
+        additionalImageTags: $(Build.BuildId)
+- stage: Run
+  displayName: Run stage
+  jobs:
+  - job: Run
+    displayName: Run services
+    steps:
+    - task: DockerCompose@0
+      displayName: Run services
+      inputs:
+        action: Run services
+        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+        azureContainerRegistry: $(azureContainerRegistry)
+        dockerComposeFile: docker-compose.ci.build.yml
+        projectName: $(Build.Repository.Name)
+        qualifyImageNames: true
+        buildImages: true
+        abortOnContainerExit: true
+        detached: false
+
