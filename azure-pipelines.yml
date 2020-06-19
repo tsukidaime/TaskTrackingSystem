@@ -1,6 +1,6 @@
 variables:
   azureContainerRegistry: aibekshulembekov.azurecr.io
-  azureSubscriptionEndpoint: Azure для учащихся
+  azureSubscriptionEndpoint: Azure for Students
 steps:
 - task: DockerCompose@0
   displayName: Container registry login
