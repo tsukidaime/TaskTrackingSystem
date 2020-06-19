@@ -31,7 +31,7 @@ stages:
   jobs:
   - deployment: VMDeploy
     environment:
-      name: machine-tapsyrma
+      name: tapsyrma-machine
       resourceType: VirtualMachine
     strategy:
       runOnce:
