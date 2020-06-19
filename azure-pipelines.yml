@@ -1,5 +1,5 @@
 stages:
-- stage: Build and Push
+- stage: BuildPush
   displayName: Build and push stage
   jobs:
   - job: Build
