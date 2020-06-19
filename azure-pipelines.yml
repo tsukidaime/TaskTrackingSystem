@@ -1,6 +1,3 @@
-variables:
-  azureContainerRegistry: aibekshulembekov.azurecr.io
-  azureSubscriptionEndpoint: Azure Resource Group
 stages:
 - stage: Build and Push
   displayName: Build and push stage
@@ -11,26 +8,24 @@ stages:
     - task: DockerCompose@0
       displayName: Build services
       inputs:
-        action: Build services
-        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-        azureContainerRegistry: $(azureContainerRegistry)
-        dockerComposeFile: docker-compose.yml
-        projectName: $(Build.Repository.Name)
-        qualifyImageNames: true
-        additionalImageTags: $(Build.BuildId)
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
+        azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Build services'
+        additionalImageTags: '$(Build.BuildId)'
   - job: Push
     displayName: Push services
     steps:
     - task: DockerCompose@0
       displayName: Push services
       inputs:
-        action: Push services
-        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-        azureContainerRegistry: $(azureContainerRegistry)
-        dockerComposeFile: docker-compose.yml
-        projectName: $(Build.Repository.Name)
-        qualifyImageNames: true
-        additionalImageTags: $(Build.BuildId)
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
+        azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Push services'
+        additionalImageTags: '$(Build.BuildId)'
 - stage: Run
   displayName: Run stage
   jobs:
@@ -40,13 +35,10 @@ stages:
     - task: DockerCompose@0
       displayName: Run services
       inputs:
-        action: Run services
-        azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-        azureContainerRegistry: $(azureContainerRegistry)
-        dockerComposeFile: docker-compose.ci.build.yml
-        projectName: $(Build.Repository.Name)
-        qualifyImageNames: true
-        buildImages: true
-        abortOnContainerExit: true
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
+        azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Run services'
         detached: false
 
