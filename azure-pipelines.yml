@@ -1,31 +1,4 @@
 stages:
-- stage: BuildPush
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build services
-    steps:
-    - task: DockerCompose@0
-      displayName: Build services
-      inputs:
-        containerregistrytype: 'Azure Container Registry'
-        azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
-        azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
-        dockerComposeFile: 'docker-compose.yml'
-        action: 'Build services'
-        additionalImageTags: '$(Build.BuildId)'
-  - job: Push
-    displayName: Push services
-    steps:
-    - task: DockerCompose@0
-      displayName: Push services
-      inputs:
-        containerregistrytype: 'Azure Container Registry'
-        azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
-        azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
-        dockerComposeFile: 'docker-compose.yml'
-        action: 'Push services'
-        additionalImageTags: '$(Build.BuildId)'
 - stage: Deploy
   displayName: Deploy stage
   jobs:
