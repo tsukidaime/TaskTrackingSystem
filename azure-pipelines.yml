@@ -7,8 +7,6 @@ stages:
   jobs:
   - job: Run
     displayName: Run docker-compose
-    pool:
-      vmImage: $(vmImageName)
     steps:
     - task: DockerCompose@0
       displayName: Container registry login
