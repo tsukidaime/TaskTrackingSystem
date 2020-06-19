@@ -29,6 +29,10 @@ stages:
 - stage: Run
   displayName: Run stage
   jobs:
+  - deployment: VMDeploy
+    environment:
+      name: machine-tapsyrma
+      resourceType: VirtualMachine
   - job: Run
     displayName: Run services
     steps:
@@ -40,5 +44,4 @@ stages:
         azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
         dockerComposeFile: 'docker-compose.yml'
         action: 'Run services'
-        detached: false
 
