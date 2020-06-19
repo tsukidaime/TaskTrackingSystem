@@ -1,6 +1,6 @@
 variables:
   azureContainerRegistry: aibekshulembekov.azurecr.io
-  azureSubscriptionEndpoint: Azure for Students
+  azureSubscriptionEndpoint: Azure Resource Group
 stages:
 - stage: Run
   displayName: Run and push stage
