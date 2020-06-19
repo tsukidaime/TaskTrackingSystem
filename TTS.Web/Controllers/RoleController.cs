@@ -16,7 +16,7 @@ using TTS.Shared.Models.Role;
 
 namespace TTS.Web.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;
@@ -98,9 +98,10 @@ namespace TTS.Web.Controllers
             //TODO Ensure ok
             var model = new RoleAssignDto()
             {
-                UserId = (Guid)id
+                UserId = (Guid)id,
+                Roles = allRoles.Value.Select(x => x.Name).Except(userRoles.Value).ToList(),
+                UserRoles = userRoles.Value.ToList()
             };
-            ViewBag.Roles = allRoles.Value.Select(x => x.Name).ToList().Except(userRoles.Value);
             return View(model);
         }
 

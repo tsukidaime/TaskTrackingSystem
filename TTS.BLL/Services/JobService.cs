@@ -58,7 +58,7 @@ namespace TTS.BLL.Services
                         JobId = job.Id
                     });
                     await _emailSender.SendEmailAsync(user.Email, "New task for you",
-                        $"<p>Hello! You have a new job!</p> <p>{job.Name} \n {job.Description}</p>");
+                        $"<p>Hello! You have a new task!</p> <p>{job.Name} \n {job.Description}</p>");
                 }
 
                 await _context.SaveChangesAsync();
@@ -92,6 +92,7 @@ namespace TTS.BLL.Services
             var dto = item as JobEditDto;
             var job = await _context.Jobs.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if(job == null) _operationHelper.BadRequest<T>($"Job {dto.Id} doesn't exist");
+            if (dto == null) return _operationHelper.BadRequest<T>("Dto is null");
             job.Name = dto.Name;
             job.Description = dto.Description;
             job.Deadline = dto.Deadline;
@@ -104,7 +105,8 @@ namespace TTS.BLL.Services
             }
             catch (DbUpdateConcurrencyException e)
             {
-                return !JobExists(job) ? _operationHelper.NotFound<T>($"Job {dto.Id} isn't exist") 
+                return !JobExists(job)
+                    ? _operationHelper.NotFound<T>($"Job {dto.Id} doesn't exist")
                     : _operationHelper.InternalServerError<T>(e.Message);
             }
         }
@@ -130,7 +132,7 @@ namespace TTS.BLL.Services
                 .Include(j => j.Status)
                 .Select(x => _mapper.Map<T>(x))
                 .ToListAsync();
-            return _operationHelper.OK(jobs,"Jobs are returned successfully");
+            return _operationHelper.OK(jobs,"Jobs returned successfully");
         }
 
         public async Task<OperationStatus<List<T>>> GetByUser<T>(ClaimsPrincipal principal)
@@ -138,7 +140,21 @@ namespace TTS.BLL.Services
             var user = await _userManager.GetUserAsync(principal);
             var jobs = _context.UserJobs.Where(x => x.UserId == user.Id)
                 .Select(x => _mapper.Map<T>(x.Job)).ToList();
-            return _operationHelper.OK(jobs,"Jobs are returned successfully");
+            return _operationHelper.OK(jobs,"Jobs returned successfully");
+        }
+
+        public async Task<OperationStatus<T>> ChangeStatus<T>(T item)
+        {
+            var dto = item as JobChangeStatusDto;
+            var job = await _context.Jobs.FindAsync(dto?.JobId);
+            if (dto?.StatusId != null)
+            {
+                job.StatusId = dto.StatusId;
+                _context.Update(job);
+                await _context.SaveChangesAsync();
+            }
+            else return _operationHelper.BadRequest<T>("Status is null");
+            return _operationHelper.OK<T>($"Job {job.Id} Status changed successfully");
         }
     }
 }

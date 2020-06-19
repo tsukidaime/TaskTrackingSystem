@@ -7,5 +7,7 @@ namespace TTS.Shared.Models.Role
     {
         public Guid UserId { get; set; }
         public List<string> Roles { get; set; }
+        public List<string> UserRoles { get; set; }
+        public string Role { get; set; }
     }
 }

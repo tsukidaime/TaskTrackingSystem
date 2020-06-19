@@ -5,7 +5,6 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "../Shared/_Layout.cshtml";
-    const string ADMIN_ROLE = "admin";
 }
 
 <h1>Index</h1>
@@ -47,14 +46,11 @@
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
-                <a asp-action="Edit" asp-controller="User" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a> |
-                @if (User.IsInRole(ADMIN_ROLE))
-                {
-                    <a asp-action="Assign" asp-controller="Role" asp-route-id="@item.Id" class="btn btn-outline-primary">Assign role</a>
-                    <a asp-action="Add" asp-controller="Employee" asp-route-id="@item.Id" class="btn btn-outline-primary">Add Employee</a>
-                }
+                <a asp-action="Add" asp-controller="Employee" asp-route-id="@item.Id" class="btn btn-outline-primary">Add Employee</a>
+                <a asp-action="Edit" asp-controller="User" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                <a asp-action="Assign" asp-controller="Role" asp-route-id="@item.Id" class="btn btn-outline-primary">Assign role</a>
+                <a asp-action="Delete" asp-controller="User" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
                 <a asp-action="Details" asp-controller="User" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a> 
-                <a asp-action="Delete" asp-controller="User" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a> 
             </td>
         </tr>
 }

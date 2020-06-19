@@ -32,17 +32,7 @@ namespace TTS.Web
             return View(models);
         }
 
-        
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null) return BadRequest();
-            var result = await _statusService.GetAsync<StatusDto>((Guid) id);
-            //TODO Ensure ok
-            var model = result.Value;
-            return View(model);
-        }
 
-        
         public IActionResult Create()
         {
             return View();

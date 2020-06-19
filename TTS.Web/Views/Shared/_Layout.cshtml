@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Syncfusion.EJ2
+@{
+    const string ADMIN_ROLE = "admin";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,18 +29,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole("admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" id="users" asp-controller="User" asp-action="Index">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" id="roles" asp-controller="Role" asp-action="Index">Roles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" id="statuses" asp-controller="Status" asp-action="Index">Statuses</a>
-                            </li>
-                        }
+                         @if(User.IsInRole(ADMIN_ROLE)){
+                             <li class="nav-item">
+                                 <a class="nav-link text-dark" id="statuses" asp-controller="Status" asp-action="Index">Statuses</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link text-dark" id="users" asp-controller="User" asp-action="Index">Users</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link text-dark" id="roles" asp-controller="Role" asp-action="Index">Roles</a>
+                             </li>
+                         }
                         <li class="nav-item">
                             <a class="nav-link text-dark" id="jobs" asp-controller="Job" asp-action="Index">Jobs</a>
                         </li>

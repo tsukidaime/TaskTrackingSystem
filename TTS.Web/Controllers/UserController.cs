@@ -12,8 +12,8 @@ using TTS.BLL.Services.Abstract;
 using TTS.Shared.Models.User;
 
 namespace TTS.Web.Controllers
-{
-    //[Authorize(Roles = "admin")]
+{  
+    [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         private readonly ILogger<UserController> _logger;

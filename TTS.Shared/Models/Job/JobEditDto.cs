@@ -20,7 +20,5 @@ namespace TTS.Shared.Models.Job
         public DateTime Deadline { get; set; }
         [Required(ErrorMessage = "Job status is required")]
         public Guid JobStatusId { get; set; }
-        
-        public List<TodoDto> Todos { get; set; }
     }
 }

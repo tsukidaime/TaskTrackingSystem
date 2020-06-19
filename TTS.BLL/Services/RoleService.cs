@@ -88,10 +88,10 @@ namespace TTS.BLL.Services
         {
             var dto = item as RoleAssignDto;
             var user = await _userManager.FindByIdAsync(dto.UserId.ToString());
-            var result = await _userManager.AddToRolesAsync(user, dto.Roles);
+            var result = await _userManager.AddToRoleAsync(user, dto.Role);
             if(!result.Succeeded) _operationHelper.InternalServerError<T>(_errorHelper.ErrorMessage(result));
             await _context.SaveChangesAsync();
-            return  _operationHelper.OK<T>("Roles assigned successfully");
+            return  _operationHelper.OK<T>("Role assigned successfully");
         }
 
         public async Task<OperationStatus<T>> RemoveRolesAsync<T>(T item)

@@ -11,6 +11,58 @@
     <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.syncfusion.com_ej2_material.css" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/@mdi/font" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/@types" t="IncludeRecursive">
+        <e p="events" t="IncludeRecursive" />
+        <e p="minimatch" t="IncludeRecursive" />
+        <e p="node" t="IncludeRecursive" />
+      </e>
+      <e p="TTS.Api/ClientApp/node_modules/@vue/cli-plugin-babel" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/@vue/cli-plugin-pwa" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/@vue/cli-plugin-typescript" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/@vue/cli-service" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/@vue/component-compiler-utils" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/acorn-walk" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/address" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/axios" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/babel-plugin-transform-imports" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/chalk" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/chokidar" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/cli-highlight" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/commander" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/core-js" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/date-fns" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/dotenv" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/dotenv-expand" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/fork-ts-checker-webpack-plugin" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/javascript-stringify" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/microevent.ts" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/portfinder" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/postcss" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/postcss-selector-parser" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/register-service-worker" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/sass" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/sass-loader" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/source-map" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/terser" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/ts-loader" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/tslib" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/tslint" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/upath" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vue" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vue-class-component" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vue-cli-plugin-axios" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vue-cli-plugin-vuetify" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vue-loader" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vue-property-decorator" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vue-router" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vue-template-compiler" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vuetify" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vuetify-loader" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vuex" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/vuex-class" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/webpack-chain" t="IncludeRecursive" />
+      <e p="TTS.Api/ClientApp/node_modules/worker-rpc" t="IncludeRecursive" />
       <e p="TTS.BLL" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -22,23 +74,24 @@
         </e>
         <e p="Options" t="Include">
           <e p="AuthMessageSenderOptions.cs" t="Include" />
+          <e p="JWTAuthOptions.cs" t="Include" />
         </e>
         <e p="Services" t="Include">
           <e p="Abstract" t="Include">
+            <e p="IAuthService.cs" t="Include" />
             <e p="IEmployeeService.cs" t="Include" />
             <e p="IJobService.cs" t="Include" />
             <e p="IRoleService.cs" t="Include" />
             <e p="IService.cs" t="Include" />
             <e p="IStatusService.cs" t="Include" />
-            <e p="ITodoService.cs" t="Include" />
             <e p="IUserService.cs" t="Include" />
           </e>
+          <e p="AuthService.cs" t="Include" />
           <e p="EmailSender.cs" t="Include" />
           <e p="EmployeeService.cs" t="Include" />
           <e p="JobService.cs" t="Include" />
           <e p="RoleService.cs" t="Include" />
           <e p="StatusService.cs" t="Include" />
-          <e p="TodoService.cs" t="Include" />
           <e p="UserService.cs" t="Include" />
         </e>
         <e p="TTS.BLL.csproj" t="IncludeRecursive" />
@@ -53,7 +106,6 @@
           <e p="Entity.cs" t="Include" />
           <e p="Job.cs" t="Include" />
           <e p="Status.cs" t="Include" />
-          <e p="Todo.cs" t="Include" />
           <e p="User.cs" t="Include" />
           <e p="UserJob.cs" t="Include" />
         </e>
@@ -70,6 +122,8 @@
           <e p="20200205183359_TodoAdded.Designer.cs" t="Include" />
           <e p="20200205191711_FixedTodo.cs" t="Include" />
           <e p="20200205191711_FixedTodo.Designer.cs" t="Include" />
+          <e p="20200522080737_DeletedTodo.cs" t="Include" />
+          <e p="20200522080737_DeletedTodo.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -89,11 +143,15 @@
           <e p="OperationStatus.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
+          <e p="Auth" t="Include">
+            <e p="AuthDto.cs" t="Include" />
+          </e>
           <e p="Employee" t="Include">
             <e p="EmployeeDto.cs" t="Include" />
           </e>
           <e p="ErrorViewModel.cs" t="Include" />
           <e p="Job" t="Include">
+            <e p="JobChangeStatusDto.cs" t="Include" />
             <e p="JobCreateDto.cs" t="Include" />
             <e p="JobDetailsDto.cs" t="Include" />
             <e p="JobDto.cs" t="Include" />
@@ -128,7 +186,6 @@
           <e p="JobProfile.cs" t="Include" />
           <e p="RoleProfile.cs" t="Include" />
           <e p="StatusProfile.cs" t="Include" />
-          <e p="TodoProfile.cs" t="Include" />
           <e p="UserProfile.cs" t="Include" />
         </e>
         <e p="TTS.Shared.csproj" t="IncludeRecursive" />
@@ -228,7 +285,6 @@
           <e p="JobController.cs" t="Include" />
           <e p="RoleController.cs" t="Include" />
           <e p="StatusController.cs" t="Include" />
-          <e p="TodoController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -279,7 +335,6 @@
           <e p="Status" t="Include">
             <e p="Create.cshtml" t="Include" />
             <e p="Delete.cshtml" t="Include" />
-            <e p="Details.cshtml" t="Include" />
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
           </e>

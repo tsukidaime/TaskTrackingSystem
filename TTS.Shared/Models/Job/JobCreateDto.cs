@@ -23,7 +23,5 @@ namespace TTS.Shared.Models.Job
         public List<Guid> SelectedUsers { get; set; }
         [Required(ErrorMessage = "Job status is required")]
         public Guid StatusId { get; set; }
-        
-        public List<TodoDto> Todos { get; set; }
     }
 }

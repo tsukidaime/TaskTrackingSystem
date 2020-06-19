@@ -22,16 +22,14 @@ namespace TTS.Web.Controllers
         private readonly IMapper _mapper;
         private readonly IStatusService _statusService;
         private readonly IEmployeeService _employeeService;
-        private readonly ITodoService _todoService;
         
-        public JobController(IJobService jobService, IUserService userService, IMapper mapper, IStatusService statusService, IEmployeeService employeeService, ITodoService todoService, IEmailSender emailSender)
+        public JobController(IJobService jobService, IUserService userService, IMapper mapper, IStatusService statusService, IEmployeeService employeeService, IEmailSender emailSender)
         {
             _jobService = jobService;
             _userService = userService;
             _mapper = mapper;
             _statusService = statusService;
             _employeeService = employeeService;
-            _todoService = todoService;
         }
 
         public async Task<IActionResult> Index()
@@ -59,12 +57,9 @@ namespace TTS.Web.Controllers
             job.Status = status.Value;
             var users = await _userService.GetByJobAsync<UserDto>(job.Id);
             job.Users = users.Value.ToList();
-            var todos = await _todoService.GetByJobAsync<TodoDto>(job.Id);
-            job.Todos = todos.Value.ToList();
             var model = job;
             return View(model);
         }
-
 
         public async Task<IActionResult> Create()
         {
@@ -76,7 +71,6 @@ namespace TTS.Web.Controllers
             return View(new JobCreateDto());
         }
 
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(JobCreateDto dto)

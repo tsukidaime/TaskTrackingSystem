@@ -52,7 +52,6 @@ namespace TTS.Web
                     opts.Password.RequireUppercase = false;
                     opts.Password.RequireDigit = false;
                     opts.Password.RequiredLength = 3;
-                    //opts.SignIn.RequireConfirmedAccount = true;
                 })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -78,7 +77,6 @@ namespace TTS.Web
             services.AddTransient<IRoleService,RoleService>();
             services.AddTransient<IEmployeeService,EmployeeService>();
             services.AddTransient<IStatusService,StatusService>();
-            services.AddTransient<ITodoService, TodoService>();
             #endregion
             
             services.AddDistributedMemoryCache();

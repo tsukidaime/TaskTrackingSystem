@@ -14,20 +14,25 @@
 <h4>Assign Role</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <form asp-action="Assign" asp-controller="Role" method="post">
-            <input type="hidden" asp-for="UserId"/>
             <div class="form-group">
-                <label asp-for="Roles" class="control-label"></label>
-                <ejs-multiselect id="roles" dataSource="@ViewBag.Roles" 
-                                 placeholder="Select a role .." ejs-for="@Model.Roles">
-                    <e-multiselect-fields text="Name" value="Name"></e-multiselect-fields>
-                </ejs-multiselect>
+                <input type="hidden" asp-for="UserId"/>
+            </div>
+            <div class="form-group">
+                <ejs-dropdownlist id="employees" dataSource="@Model.Roles" placeholder="Select a role"
+                                  ejs-for="@Model.Role">
+                    <e-dropdownlist-fields text="Name" value="Name"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </form>
+    </div>
+    <div class="col-md-3">
+        <h5>Roles of the user</h5>
+        <ejs-listbox id="listbox" dataSource="@Model.UserRoles"></ejs-listbox>
     </div>
 </div>
 
