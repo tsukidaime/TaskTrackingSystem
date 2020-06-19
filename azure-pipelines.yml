@@ -26,22 +26,24 @@ stages:
         dockerComposeFile: 'docker-compose.yml'
         action: 'Push services'
         additionalImageTags: '$(Build.BuildId)'
-- stage: Run
-  displayName: Run stage
+- stage: Deploy
+  displayName: Deploy stage
   jobs:
   - deployment: VMDeploy
     environment:
       name: machine-tapsyrma
       resourceType: VirtualMachine
-  - job: Run
-    displayName: Run services
-    steps:
-    - task: DockerCompose@0
-      displayName: Run services
-      inputs:
-        containerregistrytype: 'Azure Container Registry'
-        azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
-        azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
-        dockerComposeFile: 'docker-compose.yml'
-        action: 'Run services'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DockerCompose@0
+            displayName: Run services
+            inputs:
+              containerregistrytype: 'Azure Container Registry'
+              azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
+              azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
+              dockerComposeFile: 'docker-compose.yml'
+              action: 'Run services'
+    
 
