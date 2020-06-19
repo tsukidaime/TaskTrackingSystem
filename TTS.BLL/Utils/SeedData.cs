@@ -16,7 +16,7 @@ namespace TTS.BLL.Utils
     {
         public static async Task Initialize(UserManager<User> _userManager, RoleManager<IdentityRole<Guid>> _roleManager)
         {
-            var roles = new [] {"Admin", "Manager", "Employee"};
+            var roles = new [] {"admin", "manager", "employee"};
 
             foreach (var role in roles)
             {
