@@ -1,3 +1,5 @@
+trigger: 
+- azure-pipelines
 stages:
 - stage: Deploy
   displayName: Deploy stage
@@ -11,12 +13,30 @@ stages:
         deploy:
           steps:
           - task: DockerCompose@0
-            displayName: Run services
+            displayName: Build services
             inputs:
               containerregistrytype: 'Azure Container Registry'
               azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
               azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
-              dockerComposeFile: 'docker-compose.yml'
-              action: 'Run services'
+              dockerComposeFile: '**/docker-compose.yml'
+              action: 'Build services'
+              additionalImageTags: '$(Build.BuildId)'
+          - task: DockerCompose@0
+            inputs:
+              containerregistrytype: 'Azure Container Registry'
+              azureSubscription: 'Azure для учащихся(60d8ab7e-4968-4efc-bbb2-24c71173586a)'
+              azureContainerRegistry: '{"loginServer":"aibekshulembekov.azurecr.io", "id" : "/subscriptions/60d8ab7e-4968-4efc-bbb2-24c71173586a/resourceGroups/tapsyrma/providers/Microsoft.ContainerRegistry/registries/aibekshulembekov"}'
+              dockerComposeFile: '**/docker-compose.yml'
+              action: 'Push services'
+          - task: CopyFiles@2
+            inputs:
+              Contents: '**/docker-compose.yml'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
     
 
