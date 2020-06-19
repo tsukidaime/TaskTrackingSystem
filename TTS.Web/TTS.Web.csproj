@@ -33,4 +33,9 @@
   <ItemGroup>
     <Folder Include="Views\Status" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\docker-compose.yml">
+      <Link>docker-compose.yml</Link>
+    </Content>
+  </ItemGroup>
 </Project>
