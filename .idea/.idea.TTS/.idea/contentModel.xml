@@ -11,11 +11,12 @@
     <e p="$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdn.syncfusion.com_ej2_material.css" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="docker-compose.yml" t="Include" />
+      <e p="Dockerfile" t="Include" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="TTS.BLL" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="TTS.BLL.AssemblyInfo.cs" t="Include" />
             </e>
@@ -76,7 +77,7 @@
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="TTS.DAL.AssemblyInfo.cs" t="Include" />
             </e>
@@ -125,7 +126,7 @@
           </e>
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="TTS.Shared.AssemblyInfo.cs" t="Include" />
             </e>
@@ -146,6 +147,7 @@
       <e p="TTS.Web" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
+        <e p="appsettings.Production.json" t="Include" />
         <e p="Areas" t="Include">
           <e p="Identity" t="Include">
             <e p="IdentityHostingStartup.cs" t="Include" />
@@ -237,7 +239,7 @@
           <e p="UserController.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="TTS.Web.AssemblyInfo.cs" t="Include" />
               <e p="TTS.Web.RazorAssemblyInfo.cs" t="Include" />

@@ -37,5 +37,8 @@
     <Content Include="..\docker-compose.yml">
       <Link>docker-compose.yml</Link>
     </Content>
+    <Content Include="..\Dockerfile">
+      <Link>Dockerfile</Link>
+    </Content>
   </ItemGroup>
 </Project>

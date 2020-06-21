@@ -7,6 +7,8 @@ services:
     # used to setup a Web App for Containers example
     # https://docs.microsoft.com/en-us/azure/app-service/containers/quickstart-multi-container
     image: 'aibek1805/tts'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
     build:
       context: .
       dockerfile: Dockerfile
