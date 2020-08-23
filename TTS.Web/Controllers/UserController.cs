@@ -83,8 +83,8 @@ namespace TTS.Web.Controllers
 
             var result = await _userService.GetAsync<UserDto>((Guid)id);
             //TODO Ensure OK
-
-            return View(_mapper.Map<UserDto>(result));
+            var user = result.Value;
+            return View(_mapper.Map<UserDto>(user));
         }
 
         [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]

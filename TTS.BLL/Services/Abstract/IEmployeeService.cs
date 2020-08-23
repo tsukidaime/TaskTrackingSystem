@@ -7,8 +7,8 @@ namespace TTS.BLL.Services.Abstract
 {
     public interface IEmployeeService
     {
+        Task<OperationStatus<IEnumerable<T>>> GetToAddAsync<T>(Guid id);
         Task<OperationStatus<IEnumerable<T>>> GetAsync<T>(Guid id);
-        
         Task<OperationStatus<T>> CreateAsync<T>(T item);
     }
 }

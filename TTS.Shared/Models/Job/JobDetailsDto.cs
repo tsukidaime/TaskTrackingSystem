@@ -11,7 +11,6 @@ namespace TTS.Shared.Models.Job
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ushort Progress { get; set; }
         public string Description { get; set; }
         [DisplayFormat(DataFormatString = "{0:MMM/d/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]

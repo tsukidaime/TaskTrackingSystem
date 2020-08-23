@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Syncfusion.EJ2.Linq;
 using TTS.BLL;
 using TTS.BLL.Services;
 using TTS.BLL.Services.Abstract;
@@ -30,15 +31,11 @@ namespace TTS.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add(Guid id)
         {
-            var employees = await _employeeService.GetAsync<UserDto>(id);
-            var users = await _userService.GetAllAsync<UserDto>();
-            var user = await _userService.GetAsync<UserDto>(id);
+            var result = await _employeeService.GetToAddAsync<UserDto>(id);
             //TODO Ensure OK
-            employees.Value = employees.Value.Append(user.Value);
-            var viewUsers = users.Value.Except(employees.Value);
             var model = new EmployeeDto()
             {
-                Employees = viewUsers.ToList()
+                Employees = result.Value.ToList()
             };
             return View(model);
         }

@@ -30,11 +30,17 @@ namespace TTS.BLL.Services
             _mapper = mapper;
         }
 
+        public async Task<OperationStatus<IEnumerable<T>>> GetToAddAsync<T>(Guid id)
+        {
+            var user = await _context.Users.Where(x => x.ManagerId != id && x.Id != id).ToListAsync();
+            var models = user.Select(x => _mapper.Map<T>(x));
+            return _operationHelper.OK(models, "Employees returned successfully");
+        }
+
         public async Task<OperationStatus<IEnumerable<T>>> GetAsync<T>(Guid id)
         {
-            var user = await _context.Users.Include(x => x.Employees)
-                .FirstOrDefaultAsync(x => x.Id == id);
-            var models = user.Employees.Select(x => _mapper.Map<T>(x));
+            var user = await _context.Users.Where(x => x.ManagerId == id).ToListAsync();
+            var models = user.Select(x => _mapper.Map<T>(x));
             return _operationHelper.OK(models, "Employees returned successfully");
         }
 

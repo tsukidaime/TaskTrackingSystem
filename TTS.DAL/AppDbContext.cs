@@ -28,9 +28,6 @@ namespace TTS.DAL
                 .HasKey(x => x.Id);
             modelBuilder.Entity<UserJob>()
                 .HasKey(t => new {t.UserId, t.JobId});
-            modelBuilder.Entity<Job>()
-                .Property(x => x.Progress)
-                .HasDefaultValue(0);
 
             modelBuilder.Entity<Status>()
                 .HasMany(x => x.Jobs)

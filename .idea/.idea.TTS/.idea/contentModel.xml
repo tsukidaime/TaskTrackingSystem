@@ -74,6 +74,8 @@
           <e p="20200205191711_FixedTodo.Designer.cs" t="Include" />
           <e p="20200522080737_DeletedTodo.cs" t="Include" />
           <e p="20200522080737_DeletedTodo.Designer.cs" t="Include" />
+          <e p="20200823233239_DeleteJobProgress.cs" t="Include" />
+          <e p="20200823233239_DeleteJobProgress.Designer.cs" t="Include" />
           <e p="AppDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
